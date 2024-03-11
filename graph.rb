@@ -40,4 +40,40 @@ class Knight
       end
     end
   end
+
+  def shortest_path(source, goal) # Find shortest path use modified version of Breadth-First Search
+    visited = []
+    queue = []
+    path = {} # Store parent of node
+
+    source = @nodes.find { |node| node.x == source[0] && node.y == source[1] } # Return source node
+    goal = @nodes.find { |node| node.x == goal[0] && node.y == goal[1] } # Return goal node
+    queue << source
+    visited << source
+
+    until queue.nil?
+      curr = queue.shift # Take out First value of queue
+      return print_path(path, source, goal) if curr == goal
+
+      curr.neighbor.each do |neighbor| # Visit all neightbors
+        next if visited.include?(neighbor)
+
+        queue << neighbor
+        visited << neighbor
+        path[neighbor] = curr # Store node and curr as parent of node
+      end
+    end
+  end
+
+  def print_path(path, source, goal)
+    curr = goal
+
+    shortest_path = []
+
+    until curr == source # Trace path use parent of node
+      shortest_path.unshift([curr.x, curr.y])
+      curr = path[curr]
+    end
+    shortest_path.unshift([source.x, source.y])
+  end
 end
