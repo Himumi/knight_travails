@@ -21,7 +21,7 @@ class Knight
     8.times do |x|
       8.times { |y| arr << Node.new(x, y) }
     end
-    @nodes = arr
+    @nodes = arr # [[node(x, y)], [node(x, y)], [node(x, y)]...]
     add_neighbor
   end
 
@@ -36,7 +36,7 @@ class Knight
       moves.keep_if { |move| (0..7).include?(move[0]) && (0..7).include?(move[1]) }
 
       node.neighbor = moves.map do |move|
-        @nodes.find { |node| node.x == move[0] && node.y == move[1] }
+        @nodes.find { |node| node.x == move[0] && node.y == move[1] } # Add neighbor nodes
       end
     end
   end
@@ -70,7 +70,7 @@ class Knight
 
     shortest_path = []
 
-    until curr == source # Trace path use parent of node
+    until curr == source # Trace back path from last node (goal) through parent node
       shortest_path.unshift([curr.x, curr.y])
       curr = path[curr]
     end
