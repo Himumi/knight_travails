@@ -19,7 +19,7 @@ class Knight
 
   def build_graph(arr = [])
     8.times do |x|
-      8.times { |y| arr << Node.new(x, y)}
+      8.times { |y| arr << Node.new(x, y) }
     end
     @nodes = arr
     add_neighbor
@@ -76,4 +76,14 @@ class Knight
     end
     shortest_path.unshift([source.x, source.y])
   end
+
+  def knight_move(source, goal)
+    path = shortest_path(source, goal)
+    puts "You made #{path.length - 1} moves! Your path:"
+    path.each { |item| p item }
+  end
 end
+
+game = Knight.new
+
+game.knight_move([0, 0], [7, 7])
